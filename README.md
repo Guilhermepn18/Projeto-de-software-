@@ -34,3 +34,9 @@ Este é um protótipo acadêmico, não um sistema pronto para operação comerci
 - Histórico de movimentações.
 - Backend com Python/Flask e banco de dados SQLite ou PostgreSQL.
 - Testes automatizados das regras de estoque.
+
+## Melhorias futuras
+
+- Implementar testes automatizados para as regras de estoque.
+- Aprimorar os relatórios de movimentação.
+- Adicionar autenticação de usuários.
