@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#b91c1c"><meta name="description" content="EstoqueFácil — controle simples de entradas e estoque para a adega.">
+  <title>EstoqueFácil | Controle de estoque</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar"><a class="brand" href="#" data-screen="home"><span class="brand-mark">EF</span><span class="brand-copy"><strong>EstoqueFácil</strong><small>Controle de estoque da Adega</small></span></a><button class="icon-button" id="reset-demo" title="Restaurar dados de demonstração" aria-label="Restaurar dados de demonstração"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8m0-5v5h5"/></svg></button></header>
+  <main>
+    <section class="screen active" id="screen-home" aria-labelledby="home-title">
+      <div class="welcome"><div><p class="eyebrow">PAINEL DA ADEGA</p><h1 id="home-title">Olá! 👋</h1><p class="muted">Veja como está seu estoque hoje.</p></div><span class="today-chip" id="today-label"></span></div>
+      <div class="stats-grid" aria-label="Resumo do estoque"><article class="stat-card"><span class="stat-icon neutral">▦</span><span class="stat-label">Produtos</span><strong class="stat-value" id="stat-products">7</strong><small>cadastrados</small></article><article class="stat-card"><span class="stat-icon warning">!</span><span class="stat-label">Baixo estoque</span><strong class="stat-value" id="stat-low">5</strong><small>precisam de atenção</small></article><article class="stat-card stat-card-wide"><span class="stat-icon danger">↓</span><span class="stat-label">Produtos zerados</span><strong class="stat-value" id="stat-zero">3</strong><small>podem causar falta de venda</small></article></div>
+      <div class="section-heading"><p class="eyebrow">ATALHOS</p><h2>O que você precisa fazer?</h2></div>
+      <button class="action-card primary-action" data-screen="entry"><span class="action-icon white-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="action-copy"><strong>Registrar entrada</strong><small>Adicionar mercadorias ao estoque</small></span><span class="action-arrow">›</span></button>
+      <button class="action-card" data-screen="stock"><span class="action-icon red-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v15H4zM8 9h8M8 13h5M8 17h3"/></svg></span><span class="action-copy"><strong>Consultar estoque</strong><small>Ver quantidades e alertas de reposição</small></span><span class="action-arrow">›</span></button>
+      <button class="action-card" data-screen="stock" data-filter="low"><span class="action-icon amber-icon"><svg viewBox="0 0 24 24"><path d="M12 3 22 20H2L12 3zM12 9v5M12 17h.01"/></svg></span><span class="action-copy"><strong>Produtos em falta</strong><small id="missing-copy">Confira os itens que precisam de reposição</small></span><span class="action-arrow">›</span></button>
+      <div class="tip-card"><span class="tip-bulb">✦</span><p><strong>Dica rápida</strong><br>Registre cada entrada para manter as quantidades atualizadas.</p></div>
+    </section>
+    <section class="screen" id="screen-entry" aria-labelledby="entry-title">
+      <button class="back-link" data-screen="home"><span>‹</span> Voltar ao início</button><div class="page-heading"><span class="page-icon red-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><div><p class="eyebrow">MOVIMENTAÇÃO</p><h1 id="entry-title">Registrar entrada</h1><p class="muted">Informe os dados da mercadoria recebida.</p></div></div>
+      <form id="entry-form" class="form-card" novalidate>
+        <div class="form-field"><label for="product-select">Produto <span>*</span></label><select id="product-select" name="product" required><option value="">Selecione um produto</option></select><small class="field-hint">Escolha o item que chegou à adega.</small></div>
+        <div class="form-row"><div class="form-field"><label for="quantity">Quantidade <span>*</span></label><input id="quantity" name="quantity" type="number" min="1" step="1" placeholder="Ex.: 24" required inputmode="numeric"></div><div class="form-field"><label for="unit">Unidade</label><select id="unit" name="unit"><option value="unidades">Unidades</option><option value="caixas">Caixas</option><option value="fardos">Fardos</option></select></div></div>
+        <div class="form-field"><label for="supplier">Fornecedor</label><input id="supplier" name="supplier" type="text" maxlength="100" placeholder="Ex.: Distribuidora de bebidas"></div>
+        <div class="form-field"><label for="unit-cost">Custo unitário (R$) <span>*</span></label><div class="input-with-prefix"><span>R$</span><input id="unit-cost" name="unitCost" type="number" min="0.01" step="0.01" placeholder="0,00" required inputmode="decimal"></div></div>
+        <div class="form-field"><label for="entry-date">Data da entrada <span>*</span></label><input id="entry-date" name="date" type="date" required></div>
+        <div class="form-field"><label for="notes">Observações <small>(opcional)</small></label><textarea id="notes" name="notes" rows="3" maxlength="300" placeholder="Adicione alguma informação, se necessário."></textarea></div>
+        <div class="total-box"><div><span class="muted">Total da entrada</span><small id="total-detail">Informe quantidade e custo unitário</small></div><strong id="entry-total">R$ 0,00</strong></div>
+        <p class="form-error" id="entry-error" role="alert" hidden></p><div class="form-actions"><button class="button button-secondary" type="button" data-screen="home">Cancelar</button><button class="button button-primary" type="submit">Confirmar entrada <span>→</span></button></div><p class="required-note"><span>*</span> Campos obrigatórios</p>
+      </form>
+    </section>
+    <section class="screen" id="screen-stock" aria-labelledby="stock-title">
+      <button class="back-link" data-screen="home"><span>‹</span> Voltar ao início</button><div class="page-heading"><span class="page-icon red-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v15H4zM8 9h8M8 13h5M8 17h3"/></svg></span><div><p class="eyebrow">VISÃO GERAL</p><h1 id="stock-title">Consultar estoque</h1><p class="muted">Acompanhe os produtos e planeje a reposição.</p></div></div>
+      <div class="alert-banner" id="stock-alert"><span class="alert-symbol">!</span><div><strong id="alert-title">Produtos precisam de reposição</strong><p id="alert-description">Confira os itens abaixo do estoque mínimo.</p></div></div>
+      <label class="search-box" for="stock-search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="stock-search" type="search" placeholder="Buscar produto..." autocomplete="off"><span class="sr-only">Buscar produto pelo nome</span></label>
+      <div class="filter-tabs" role="group" aria-label="Filtrar produtos"><button class="filter-tab active" data-filter="all" aria-pressed="true">Todos <span id="count-all">7</span></button><button class="filter-tab" data-filter="zero" aria-pressed="false">Zerados <span id="count-zero">3</span></button><button class="filter-tab" data-filter="low" aria-pressed="false">Baixo <span id="count-low">5</span></button><button class="filter-tab" data-filter="ok" aria-pressed="false">OK <span id="count-ok">2</span></button></div>
+      <div class="list-heading"><h2 id="list-heading-title">Todos os produtos</h2><span id="list-count">7 itens</span></div><div id="stock-list" class="stock-list" aria-live="polite"></div><div class="empty-state" id="empty-state" hidden><span>⌕</span><strong>Nenhum produto encontrado</strong><p>Tente outro nome ou altere o filtro.</p></div><button class="button button-primary full-button" data-screen="entry">+ Registrar entrada</button>
+    </section>
+  </main>
+  <nav class="bottom-nav" aria-label="Navegação principal"><button class="nav-item active" data-screen="home" aria-current="page"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Início</span></button><button class="nav-item" data-screen="stock"><svg viewBox="0 0 24 24"><path d="M4 5h16v15H4zM8 9h8M8 13h5M8 17h3"/></svg><span>Estoque</span></button><button class="nav-item" data-screen="entry"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>Entrada</span></button></nav>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog class="confirm-dialog" id="success-dialog" aria-labelledby="success-title"><div class="success-mark">✓</div><h2 id="success-title">Entrada registrada!</h2><p id="success-message">O estoque foi atualizado com sucesso.</p><button class="button button-primary full-button" id="success-view-stock">Consultar estoque</button><button class="dialog-link" id="success-close">Voltar ao início</button></dialog>
+<script src="app.js"></script>
+</body>
+</html>
